@@ -1,13 +1,53 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-// Get a free hosted Postgres database in seconds: `npx create-db`
-
 generator client {
-  provider = "prisma-client"
-  output   = "../src/generated/prisma"
+  provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "postgresql"
+}
+
+// 1. Tabel User 
+model User {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String   @unique
+  password  String   // Untuk login admin
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// 2. Tabel Produk/Layanan
+model Product {
+  id          Int      @id @default(autoincrement())
+  title       String   // Misal: "Cold Room Kapasitas 100 Ton"
+  description String   // Deskripsi spesifikasi mesin
+  imageUrl    String?  // Link foto mesin
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// 3. Tabel Portofolio
+model Portfolio {
+  id          Int      @id @default(autoincrement())
+  title       String   // Misal: "Instalasi Cold Storage Pabrik Daging Sapi"
+  clientName  String   // Nama klien/perusahaan
+  description String?  // Cerita singkat soal proyeknya
+  imageUrl    String?  // Foto hasil pemasangan
+  dateBuilt   DateTime // Kapan proyek ini selesai dikerjakan
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// 4. Contact us
+model Message {
+  id        Int      @id @default(autoincrement())
+  name      String   // Nama calon klien
+  email     String
+  phone     String?  // Nomor WA/Telepon (Boleh kosong)
+  content   String   // Isi pertanyaan/pesan
+  isRead    Boolean  @default(false) // Penanda apakah pesan sudah dibaca admin
+  createdAt DateTime @default(now())
 }
