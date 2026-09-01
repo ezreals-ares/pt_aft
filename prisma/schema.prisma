@@ -51,3 +51,36 @@ model Message {
   isRead    Boolean  @default(false) // Penanda apakah pesan sudah dibaca admin
   createdAt DateTime @default(now())
 }
+
+// 5. Testimonial dari klien
+model Testimonial {
+  id        String   @id @default(cuid())
+  text      String   @db.Text
+  author    String
+  company   String
+  rating    Int      // 1-5
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// 6. FAQ (Frequently Asked Questions)
+model FAQ {
+  id        String   @id @default(cuid())
+  question  String   @db.Text
+  answer    String   @db.Text
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// 7. Industrial Stats (metric angka untuk landing page)
+model IndustrialStats {
+  id          String   @id @default(cuid())
+  label       String
+  value       String
+  description String   @db.Text
+  icon        String   // emoji atau SVG identifier
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
